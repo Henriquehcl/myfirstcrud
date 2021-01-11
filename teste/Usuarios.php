@@ -1,74 +1,14 @@
 <?php
 
+require_once 'Crud.php';
 
-
-class Control {
-
-    private static $instance;
-    protected $table;
+class Usuarios extends Crud
+{
+    protected $table = 'usuarios';
     private $nome;
     private $email;
     private $senha;
     private $cargo;
-
-    public static function getInstance()
-    {
-        if (!isset(self::$instance)) {
-            try {
-                self::$instance = new PDO('mysql:host=localhost;dbname=bancodedados', "root", "");
-                self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                self::$instance->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-            }
-        }
-
-        return self::$instance;
-    }
-
-    public static function prepare($sql)
-    {
-        return self::getInstance()->prepare($sql);
-    }
-
-    
-
-    //abstract public function insert();
-    //abstract public function update($id);
-
-    public function find($id)
-    {
-        $sql  = "SELECT * FROM $this->table WHERE id = :id";
-        $stmt = DB::prepare($sql);
-
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-
-        $stmt->execute();
-
-        return $stmt->fetch();
-    }
-
-    public function findAll()
-    {
-        $sql  = "SELECT * FROM $this->table";
-        $stmt = DB::prepare($sql);
-
-        $stmt->execute();
-
-        return $stmt->fetchAll();
-    }
-
-    public function delete($id)
-    {
-        $sql  = "DELETE FROM $this->table WHERE id = :id";
-        $stmt = DB::prepare($sql);
-
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-
-        return $stmt->execute();
-    }
-
-
 
     public function setNome($nome)
     {
@@ -135,10 +75,4 @@ class Control {
             echo $e->getMessage();
         }
     }
-
-
-    
-
 }
-
-?>

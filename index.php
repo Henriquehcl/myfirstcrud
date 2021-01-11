@@ -8,17 +8,33 @@
 <body>
 <pre>
     <?php
+    
+    require_once "vendor/autoload.php";
 
-    require_once "load.php";
+    $n = new \App\Control();
+    $n ->setFirstName('Luiz');
+    $n->setLastName('Silva');
 
-    $u = new Control();
-
+    //Selecionando o ID para alterar o Nome
+    $n->setId(2);
+    $n->setFirstName('Henrique');
+    $n->setLastName('Correa');
     
 
-    print_r($u);
-
-
+    $nome = new \App\Crud();
     
+    $nome->delete(4);
+
+    $nome->update($n);
+
+    $nome->select();
+    foreach($nome->select() as $n){
+        echo $n['id'].$n['firstname'].$n['lastname']."<br>";
+    }
+
+    print_r($n);
+    print_r($nome);
+
 
     ?>
 </pre>
