@@ -35,14 +35,3 @@
 
 
 </main>
-<?php
-$lastname = $_POST['firstname'];
-echo "teste";
-$firstname = "ksjdf";
-
-$n = new \App\Control();
-$nome = new \App\Crud();
-$n->setFirstName($firstname);
-$n->setLastName($lastname);
-$nome->insert($n);
-?>

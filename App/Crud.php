@@ -43,6 +43,25 @@ public function select() {
 
 }
 
+public function selectOne(Control $n) {
+
+    $sql = "SELECT * FROM Names WHERE id = ?";
+
+    $stmt = Conect::prepare($sql);
+    $stmt->bindValue(1, $n->getId());
+    $stmt->execute();
+
+   if($stmt->rowCount() > 0) {
+        $resultado = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $resultado;
+    } else {
+        return [];
+    }
+    //return $stmt->fetchAll();
+
+}
+
+
 public function update(Control $n) {
 
     $sql = "UPDATE Names SET firstname = ?, lastname = ? WHERE id = ?";
